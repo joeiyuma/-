@@ -10,29 +10,28 @@
     <style>
         body {
             font-family: 'Inter', 'Noto Sans JP', sans-serif;
-            background-color: #EFF6FF; /* Light Background */
+            background-color: #EFF6FF; 
         }
         .chart-container {
             position: relative;
             width: 100%;
-            max-width: 600px; /* Default max-width */
+            max-width: 600px; 
             margin-left: auto;
             margin-right: auto;
-            height: 300px; /* Default height */
-            max-height: 400px; /* Default max-height */
+            height: 300px; 
+            max-height: 400px; 
         }
-        @media (min-width: 768px) { /* md breakpoint */
+        @media (min-width: 768px) { 
             .chart-container {
                 height: 350px;
             }
         }
         .stat-card h3 {
-            color: #1A75D2; /* Secondary Blue */
+            color: #1A75D2; 
         }
         .section-title {
-            color: #0A488B; /* Primary Blue */
+            color: #0A488B; 
         }
-        /* Custom styles for HTML flow chart */
         .flowchart-step {
             background-color: #FFFFFF;
             border: 2px solid #1A75D2;
@@ -67,44 +66,6 @@
         table th, table td {
             white-space: nowrap;
         }
-        /* <!-- 
-            Infographic Narrative Plan Summary:
-            1. Introduction: NISA Growth Investment Framework overview.
-            2. Top Fund Highlights: Key metrics of top 2-3 funds.
-            3. Ranking Overview Table: Top 10 funds comparison.
-            4. Fund Type Analysis: By region and strategy (Donut charts).
-            5. Cost Comparison: Trust fees (Bar chart).
-            6. Risk-Return Distribution: Scatter plot.
-            7. Net Asset Growth: Current net assets (Bar chart).
-            8. Investor Considerations: Key points list.
-            9. NISA Usage Flow: HTML/CSS flowchart.
-            10. 30-Year Investment Simulation: Text and Bar chart. (NEW)
-            11. Conclusion.
-
-            Color Palette Selection: Brilliant Blues (with accents)
-            - Primary Blue: #0A488B
-            - Secondary Blue: #1A75D2
-            - Accent Green: #2ECC71
-            - Accent Yellow: #F1C40F
-            - Light Background: #EFF6FF
-            - Card Background: #FFFFFF
-            - Text Dark: #1F2937
-            - Text Light: #6B7280
-
-            Visualization Choices Summary (Confirming NO SVG, NO MERMAID JS):
-            - NISA Overview: Single Big Number (HTML/Tailwind) - Goal: Inform. Justification: Direct info.
-            - Top Fund Highlights (Net Assets, Returns): Single Big Number (HTML), Bar Chart (Chart.js Canvas) - Goal: Inform/Compare. Justification: Quick highlights.
-            - Ranking Table: HTML Table (HTML/Tailwind) - Goal: Organize/Compare. Justification: Detailed comparison.
-            - Fund Type Analysis (Region/Strategy - Net Asset Share): Donut Chart (Chart.js Canvas) - Goal: Compare (composition). Justification: Visual proportion.
-            - Cost Comparison (Trust Fees): Bar Chart (Chart.js Canvas) - Goal: Compare. Justification: Clear cost difference.
-            - Risk-Return Distribution (StdDev vs Returns): Scatter Plot (Chart.js Canvas) - Goal: Relationships. Justification: Visualize risk/reward.
-            - Net Asset Comparison: Bar Chart (Chart.js Canvas) - Goal: Compare. Justification: Fund size.
-            - Investor Considerations: List with Unicode Icons (HTML/Tailwind) - Goal: Organize/Inform. Justification: Concise advice.
-            - NISA Usage Flow: Flow Chart (Structured HTML/CSS with Tailwind, Unicode arrows) - Goal: Organize. Justification: Step-by-step guide.
-            - 30-Year Simulation: Bar Chart (Chart.js Canvas) and Text (HTML/Tailwind) - Goal: Compare/Inform. Justification: Long-term projection. (NEW)
-
-            Confirmation: NEITHER Mermaid JS NOR SVG were used anywhere in this output.
-        --> */
     </style>
 </head>
 <body class="bg-slate-50 text-gray-800">
@@ -475,7 +436,6 @@
             }
         };
         
-        // Top Fund Return Charts
         if (document.getElementById('sp500ReturnChart')) {
             new Chart(document.getElementById('sp500ReturnChart'), {
                 type: 'bar',
@@ -521,7 +481,6 @@
             });
         }
 
-        // Ranking Table
         const tableBody = document.getElementById('fundRankingsTableBody');
         if (tableBody) {
             fundData.slice(0, 10).forEach(fund => {
@@ -538,7 +497,6 @@
             });
         }
 
-        // Region Share Chart
         if (document.getElementById('regionShareChart')) {
             const sp500Assets = fundData.find(f => f.shortName === 'Slim S&P500').netAssets;
             const allCountryAssets = fundData.find(f => f.shortName === 'Slimオルカン').netAssets;
@@ -557,7 +515,6 @@
             });
         }
         
-        // Strategy Share Chart
         if (document.getElementById('strategyShareChart')) {
              const strategyAssets = [
                 fundData.find(f => f.shortName === 'Slim S&P500').netAssets, 
@@ -580,7 +537,6 @@
             });
         }
 
-        // Trust Fee Chart
         if (document.getElementById('trustFeeChart')) {
             const top10Funds = fundData.slice(0, 10);
             new Chart(document.getElementById('trustFeeChart'), {
@@ -603,7 +559,6 @@
             });
         }
 
-        // Risk-Return Scatter Chart
         if (document.getElementById('riskReturnScatterChart')) {
             const scatterData = fundData
                 .filter(f => f.return3Y !== null && f.stdDev1Y !== null)
@@ -646,7 +601,6 @@
             });
         }
         
-        // Net Assets Chart
         if (document.getElementById('netAssetsChart')) {
             const top10FundsNetAssets = fundData.slice(0, 10).sort((a,b) => b.netAssets - a.netAssets);
             new Chart(document.getElementById('netAssetsChart'), {
@@ -669,18 +623,17 @@
             });
         }
 
-        // 30-Year Simulation
-        const P = 50000; // Monthly investment
+        const P = 50000; 
         const years = 30;
-        const n_months = years * 12; // Total number of months
+        const n_months = years * 12; 
         const totalInvested = P * n_months;
 
         function calculateFV(monthlyPayment, annualRate, numberOfMonths) {
             if (annualRate === null || isNaN(annualRate)) return null;
             const r = annualRate / 100;
-            if (r <= -1) return 0; // Avoid issues with (1+r) being zero or negative for monthly root
+            if (r <= -1) return 0; 
             const monthlyRate = Math.pow(1 + r, 1/12) - 1;
-            if (monthlyRate === 0) return monthlyPayment * numberOfMonths; // No growth, just principal
+            if (monthlyRate === 0) return monthlyPayment * numberOfMonths; 
             return monthlyPayment * ( (Math.pow(1 + monthlyRate, numberOfMonths) - 1) / monthlyRate );
         }
 
@@ -706,7 +659,7 @@
                 returnPeriod: returnPeriod,
                 futureValue: fv
             };
-        }).sort((a,b) => (b.futureValue || 0) - (a.futureValue || 0)); // Sort by FV descending
+        }).sort((a,b) => (b.futureValue || 0) - (a.futureValue || 0)); 
 
         const simulationDetailsContainer = document.getElementById('simulationDetails');
         if (simulationDetailsContainer) {
@@ -761,3 +714,4 @@
     </script>
 </body>
 </html>
+
