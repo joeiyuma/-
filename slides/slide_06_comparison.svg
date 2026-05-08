@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F8FBFF"/><stop offset="1" stop-color="#E0F2FE"/></linearGradient>
+<filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#0F172A" flood-opacity="0.16"/></filter>
+</defs>
+<style>text{font-family:&quot;Noto Sans CJK JP&quot;,&quot;Noto Sans JP&quot;,&quot;Hiragino Sans&quot;,&quot;Yu Gothic&quot;,sans-serif}.small{font-size:28px}.body{font-size:34px}.lead{font-size:42px;font-weight:700}.title{font-size:64px;font-weight:800}.caption{font-size:23px}.mini{font-size:20px}</style>
+<rect width="1600" height="900" fill="url(#bg)"/>
+<circle cx="1430" cy="110" r="170" fill="#DBEAFE" opacity="0.65"/>
+<circle cx="160" cy="790" r="220" fill="#CCFBF1" opacity="0.55"/>
+<text x="80" y="88" fill="#12355B" font-size="48" font-weight="800" text-anchor="start" class="">比較：NISAと変額保険は“競合”ではなく“役割分担”</text>
+<rect x="80" y="115" width="560" height="8" rx="4" fill="#2563EB"/>
+<text x="1480" y="72" fill="#64748B" font-size="28" font-weight="700" text-anchor="end" class="">06/10</text>
+<rect x="85" y="165" width="260" height="75" fill="#12355B" rx="18"/>
+<text x="215.0" y="214" fill="#FFFFFF" font-size="30" font-weight="900" text-anchor="middle" class="">項目</text>
+<rect x="355" y="165" width="560" height="75" fill="#12355B" rx="18"/>
+<text x="635.0" y="214" fill="#FFFFFF" font-size="30" font-weight="900" text-anchor="middle" class="">NISA</text>
+<rect x="925" y="165" width="620" height="75" fill="#12355B" rx="18"/>
+<text x="1235.0" y="214" fill="#FFFFFF" font-size="30" font-weight="900" text-anchor="middle" class="">変額保険</text>
+<rect x="85" y="255" width="260" height="105" fill="#FFFFFF" stroke="#CBD5E1" rx="16"/>
+<text x="109" y="297" fill="#12355B" font-size="30" font-weight="800" text-anchor="start" class="">主目的</text>
+<rect x="355" y="255" width="560" height="105" fill="#FFFFFF" stroke="#CBD5E1" rx="16"/>
+<text x="379" y="297" fill="#334155" font-size="28" font-weight="650" text-anchor="start" class="">非課税で増やす</text>
+<rect x="925" y="255" width="620" height="105" fill="#FFFFFF" stroke="#CBD5E1" rx="16"/>
+<text x="949" y="297" fill="#334155" font-size="28" font-weight="650" text-anchor="start" class="">増やす＋死亡保障・払込免除を組み込む</text>
+<rect x="85" y="370" width="260" height="105" fill="#F8FAFC" stroke="#CBD5E1" rx="16"/>
+<text x="109" y="412" fill="#12355B" font-size="30" font-weight="800" text-anchor="start" class="">税制</text>
+<rect x="355" y="370" width="560" height="105" fill="#F8FAFC" stroke="#CBD5E1" rx="16"/>
+<text x="379" y="412" fill="#334155" font-size="28" font-weight="650" text-anchor="start" class="">運用益非課税</text>
+<rect x="925" y="370" width="620" height="105" fill="#F8FAFC" stroke="#CBD5E1" rx="16"/>
+<text x="949" y="412" fill="#334155" font-size="28" font-weight="650" text-anchor="start" class="">生命保険料控除や保険金課税等は契約形態で異なる</text>
+<rect x="85" y="485" width="260" height="105" fill="#FFFFFF" stroke="#CBD5E1" rx="16"/>
+<text x="109" y="527" fill="#12355B" font-size="30" font-weight="800" text-anchor="start" class="">流動性</text>
+<rect x="355" y="485" width="560" height="105" fill="#FFFFFF" stroke="#CBD5E1" rx="16"/>
+<text x="379" y="527" fill="#334155" font-size="28" font-weight="650" text-anchor="start" class="">原則いつでも売却可</text>
+<rect x="925" y="485" width="620" height="105" fill="#FFFFFF" stroke="#CBD5E1" rx="16"/>
+<text x="949" y="527" fill="#334155" font-size="28" font-weight="650" text-anchor="start" class="">早期解約は元本割れリスク・費用に注意</text>
+<rect x="85" y="600" width="260" height="105" fill="#F8FAFC" stroke="#CBD5E1" rx="16"/>
+<text x="109" y="642" fill="#12355B" font-size="30" font-weight="800" text-anchor="start" class="">暴落時の出口</text>
+<rect x="355" y="600" width="560" height="105" fill="#F8FAFC" stroke="#CBD5E1" rx="16"/>
+<text x="379" y="642" fill="#334155" font-size="28" font-weight="650" text-anchor="start" class="">売却時期が重なると評価損が確定し得る</text>
+<rect x="925" y="600" width="620" height="105" fill="#F8FAFC" stroke="#CBD5E1" rx="16"/>
+<text x="949" y="642" fill="#334155" font-size="28" font-weight="650" text-anchor="start" class="">商品により特別勘定のスイッチングでリスク調整可</text>
+<rect x="85" y="715" width="260" height="105" fill="#FFFFFF" stroke="#CBD5E1" rx="16"/>
+<text x="109" y="757" fill="#12355B" font-size="30" font-weight="800" text-anchor="start" class="">万が一</text>
+<rect x="355" y="715" width="560" height="105" fill="#FFFFFF" stroke="#CBD5E1" rx="16"/>
+<text x="379" y="757" fill="#334155" font-size="28" font-weight="650" text-anchor="start" class="">運用は本人の入金継続が前提</text>
+<rect x="925" y="715" width="620" height="105" fill="#FFFFFF" stroke="#CBD5E1" rx="16"/>
+<text x="949" y="757" fill="#334155" font-size="28" font-weight="650" text-anchor="start" class="">死亡保障・払込免除で計画継続を補完</text>
+<text x="80" y="852" fill="#64748B" font-size="22">NISA × 変額保険 併用提案資料｜一般情報・個別商品説明ではありません</text>
+</svg>

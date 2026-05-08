@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F8FBFF"/><stop offset="1" stop-color="#E0F2FE"/></linearGradient>
+<filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#0F172A" flood-opacity="0.16"/></filter>
+</defs>
+<style>text{font-family:&quot;Noto Sans CJK JP&quot;,&quot;Noto Sans JP&quot;,&quot;Hiragino Sans&quot;,&quot;Yu Gothic&quot;,sans-serif}.small{font-size:28px}.body{font-size:34px}.lead{font-size:42px;font-weight:700}.title{font-size:64px;font-weight:800}.caption{font-size:23px}.mini{font-size:20px}</style>
+<rect width="1600" height="900" fill="url(#bg)"/>
+<circle cx="1430" cy="110" r="170" fill="#DBEAFE" opacity="0.65"/>
+<circle cx="160" cy="790" r="220" fill="#CCFBF1" opacity="0.55"/>
+<text x="80" y="88" fill="#12355B" font-size="48" font-weight="800" text-anchor="start" class="">万が一への備え：運用にも“団信的発想”を</text>
+<rect x="80" y="115" width="560" height="8" rx="4" fill="#2563EB"/>
+<text x="1480" y="72" fill="#64748B" font-size="28" font-weight="700" text-anchor="end" class="">09/10</text>
+<text x="100" y="155" fill="#334155" font-size="34" font-weight="700" text-anchor="start" class="">住宅ローンに団信があるのは、返済途中で万が一があると家族が困るから。資産形成も同じ視点で考えられます。</text>
+<rect x="105" y="290" width="610" height="320" rx="28" fill="#EFF6FF" stroke="#D8E3F0" stroke-width="2" filter="url(#shadow)"/>
+<text x="410" y="360" fill="#12355B" font-size="38" font-weight="900" text-anchor="middle" class="">住宅ローン</text>
+<text x="410" y="435" fill="#2563EB" font-size="42" font-weight="900" text-anchor="middle" class="">団信で家族を守る</text>
+<path d="M220 540 L410 390 L600 540 Z" fill="none" stroke="#2563EB" stroke-width="12" stroke-linejoin="round"/>
+<rect x="880" y="290" width="610" height="320" rx="28" fill="#F0FDF4" stroke="#D8E3F0" stroke-width="2" filter="url(#shadow)"/>
+<text x="1185" y="360" fill="#12355B" font-size="38" font-weight="900" text-anchor="middle" class="">資産形成</text>
+<text x="1185" y="435" fill="#0F766E" font-size="38" font-weight="900" text-anchor="middle" class="">払込免除で計画を守る</text>
+<circle cx="1185" cy="540" r="72" fill="none" stroke="#0F766E" stroke-width="12"/><path d="M1148 540 l28 30 l55 -70" fill="none" stroke="#0F766E" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="130" cy="680" r="9" fill="#7C3AED"/>
+<text x="158" y="690" fill="#334155" font-size="32" font-weight="600" text-anchor="start" class="">通常の投資信託・NISAには、入金者が働けなくなった時の自動補完はない</text>
+<circle cx="130" cy="741" r="9" fill="#7C3AED"/>
+<text x="158" y="751" fill="#334155" font-size="32" font-weight="600" text-anchor="start" class="">変額保険の払込免除は、所定状態のとき保険料負担を止めても契約継続を狙える機能</text>
+<circle cx="130" cy="802" r="9" fill="#7C3AED"/>
+<text x="158" y="812" fill="#334155" font-size="32" font-weight="600" text-anchor="start" class="">“教育資金・老後資金を積み立て続ける責任”に保障を付ける発想</text>
+<text x="930" y="690" fill="#7C3AED" font-size="28" font-weight="900" text-anchor="start" class="">質問例：『住宅ローンには団信を付けるのに、お子さまの教育資金づくりには何を付けますか？』</text>
+<text x="80" y="852" fill="#64748B" font-size="22">NISA × 変額保険 併用提案資料｜一般情報・個別商品説明ではありません</text>
+</svg>
