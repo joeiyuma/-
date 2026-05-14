@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#8a4b24" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="コピペ帳" />
+  <title>クリボー風コピペ帳</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #fff7e8;
+      --bg-deep: #ffd890;
+      --card: rgba(255, 255, 255, 0.88);
+      --ink: #2f1f18;
+      --muted: #7a5947;
+      --brown: #8a4b24;
+      --brown-dark: #5a2f1b;
+      --orange: #f59e0b;
+      --green: #6fbf4a;
+      --green-dark: #357a2e;
+      --danger: #d54a36;
+      --shadow: 0 22px 55px rgba(90, 47, 27, 0.18);
+      --radius-lg: 28px;
+      --radius-md: 20px;
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+      font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      min-height: 100%;
+      background: var(--bg);
+    }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 12% 10%, rgba(255, 232, 157, 0.95), transparent 32rem),
+        radial-gradient(circle at 90% 8%, rgba(111, 191, 74, 0.2), transparent 28rem),
+        linear-gradient(150deg, #fff7e8 0%, #ffe2a7 58%, #ffc568 100%);
+      overflow-x: hidden;
+    }
+
+    button,
+    input,
+    textarea { font: inherit; }
+
+    button {
+      border: 0;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+
+    .app-shell {
+      width: min(1180px, 100%);
+      min-height: 100vh;
+      margin: 0 auto;
+      padding: max(18px, env(safe-area-inset-top)) 16px calc(94px + var(--safe-bottom));
+    }
+
+    .hero {
+      position: relative;
+      display: grid;
+      gap: 18px;
+      align-items: center;
+      margin: 0 auto 18px;
+      padding: 20px;
+      border: 2px solid rgba(90, 47, 27, 0.12);
+      border-radius: var(--radius-lg);
+      background: rgba(255, 255, 255, 0.58);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+    }
+
+    .hero-copy { min-width: 0; }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 8px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: rgba(111, 191, 74, 0.18);
+      color: var(--green-dark);
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2rem, 12vw, 4.6rem);
+      line-height: 0.94;
+      letter-spacing: -0.08em;
+      text-wrap: balance;
+    }
+
+    .hero p {
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-size: clamp(1rem, 3.8vw, 1.25rem);
+      line-height: 1.72;
+    }
+
+    .mascot-wrap {
+      display: grid;
+      place-items: center;
+      min-height: 176px;
+    }
+
+    .mascot {
+      position: relative;
+      width: 158px;
+      height: 144px;
+      filter: drop-shadow(0 22px 18px rgba(90, 47, 27, 0.25));
+      transform-origin: 50% 100%;
+      animation: idle 2.8s ease-in-out infinite;
+    }
+
+    .mascot .head {
+      position: absolute;
+      inset: 8px 12px 22px;
+      border: 5px solid var(--brown-dark);
+      border-radius: 52% 52% 46% 46% / 58% 58% 42% 42%;
+      background: linear-gradient(160deg, #b56b35 0%, #8a4b24 78%);
+    }
+
+    .mascot .brow {
+      position: absolute;
+      top: 51px;
+      width: 50px;
+      height: 16px;
+      border-radius: 999px;
+      background: var(--brown-dark);
+      z-index: 3;
+    }
+
+    .mascot .brow.left { left: 27px; transform: rotate(20deg); }
+    .mascot .brow.right { right: 27px; transform: rotate(-20deg); }
+
+    .mascot .eye {
+      position: absolute;
+      top: 62px;
+      width: 36px;
+      height: 40px;
+      border: 4px solid var(--brown-dark);
+      border-radius: 50%;
+      background: #fff;
+      z-index: 2;
+    }
+
+    .mascot .eye.left { left: 34px; }
+    .mascot .eye.right { right: 34px; }
+    .mascot .eye::after {
+      content: "";
+      position: absolute;
+      top: 10px;
+      left: 12px;
+      width: 9px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--ink);
+    }
+
+    .mascot .mouth {
+      position: absolute;
+      left: 50%;
+      bottom: 37px;
+      width: 58px;
+      height: 18px;
+      border-bottom: 5px solid var(--brown-dark);
+      border-radius: 0 0 60px 60px;
+      transform: translateX(-50%);
+      z-index: 3;
+    }
+
+    .mascot .foot {
+      position: absolute;
+      bottom: 0;
+      width: 62px;
+      height: 28px;
+      border: 5px solid var(--brown-dark);
+      border-radius: 52% 48% 42% 46%;
+      background: #f6d7b0;
+      z-index: -1;
+    }
+
+    .mascot .foot.left { left: 18px; transform: rotate(-10deg); }
+    .mascot .foot.right { right: 18px; transform: rotate(10deg); }
+
+    @keyframes idle {
+      0%, 100% { transform: translateY(0) rotate(-1deg); }
+      50% { transform: translateY(-8px) rotate(1deg); }
+    }
+
+    .toolbar {
+      position: sticky;
+      top: max(8px, env(safe-area-inset-top));
+      z-index: 10;
+      display: grid;
+      gap: 10px;
+      margin-bottom: 16px;
+      padding: 12px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.72);
+      box-shadow: 0 14px 38px rgba(90, 47, 27, 0.12);
+      backdrop-filter: blur(18px);
+    }
+
+    .search-box,
+    .field {
+      width: 100%;
+      min-height: 48px;
+      border: 2px solid rgba(90, 47, 27, 0.12);
+      border-radius: 18px;
+      outline: none;
+      background: rgba(255, 255, 255, 0.84);
+      color: var(--ink);
+      transition: border-color 160ms ease, box-shadow 160ms ease, background 160ms ease;
+    }
+
+    .search-box { padding: 0 16px; }
+    .field { padding: 12px 14px; }
+    textarea.field { min-height: 118px; resize: vertical; }
+
+    .search-box:focus,
+    .field:focus {
+      border-color: var(--orange);
+      background: #fff;
+      box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.18);
+    }
+
+    .chips {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 2px;
+      scrollbar-width: none;
+    }
+
+    .chips::-webkit-scrollbar { display: none; }
+
+    .chip {
+      flex: 0 0 auto;
+      min-height: 42px;
+      padding: 0 14px;
+      border: 2px solid rgba(90, 47, 27, 0.1);
+      border-radius: 999px;
+      background: #fff;
+      color: var(--brown-dark);
+      font-weight: 800;
+    }
+
+    .chip[aria-pressed="true"] {
+      border-color: var(--brown-dark);
+      background: var(--brown-dark);
+      color: #fff;
+    }
+
+    .layout {
+      display: grid;
+      gap: 16px;
+    }
+
+    .panel {
+      border: 2px solid rgba(90, 47, 27, 0.1);
+      border-radius: var(--radius-lg);
+      background: var(--card);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+      overflow: hidden;
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      padding: 18px 18px 0;
+    }
+
+    .panel-title {
+      margin: 0;
+      font-size: 1.25rem;
+      letter-spacing: -0.03em;
+    }
+
+    .count {
+      flex: 0 0 auto;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(245, 158, 11, 0.18);
+      color: #86520b;
+      font-size: 0.82rem;
+      font-weight: 800;
+    }
+
+    .snippet-list {
+      display: grid;
+      gap: 12px;
+      padding: 18px;
+    }
+
+    .snippet-card {
+      display: grid;
+      gap: 10px;
+      padding: 14px;
+      border: 2px solid rgba(90, 47, 27, 0.1);
+      border-radius: var(--radius-md);
+      background: #fff;
+      text-align: left;
+      box-shadow: 0 10px 24px rgba(90, 47, 27, 0.08);
+    }
+
+    .snippet-main {
+      display: grid;
+      gap: 6px;
+      min-width: 0;
+    }
+
+    .snippet-title {
+      margin: 0;
+      font-size: 1rem;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+    }
+
+    .snippet-text {
+      display: -webkit-box;
+      margin: 0;
+      overflow: hidden;
+      color: var(--muted);
+      font-size: 0.94rem;
+      line-height: 1.55;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+
+    .snippet-meta {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .tag {
+      padding: 5px 9px;
+      border-radius: 999px;
+      background: rgba(111, 191, 74, 0.18);
+      color: var(--green-dark);
+      font-size: 0.78rem;
+      font-weight: 900;
+    }
+
+    .copy-btn,
+    .primary-btn,
+    .ghost-btn,
+    .danger-btn {
+      min-height: 48px;
+      border-radius: 16px;
+      font-weight: 900;
+    }
+
+    .copy-btn {
+      width: 100%;
+      background: linear-gradient(160deg, var(--green), var(--green-dark));
+      color: #fff;
+      box-shadow: 0 12px 22px rgba(53, 122, 46, 0.22);
+    }
+
+    .primary-btn {
+      width: 100%;
+      background: linear-gradient(160deg, var(--orange), #d97706);
+      color: #fff;
+      box-shadow: 0 12px 22px rgba(217, 119, 6, 0.22);
+    }
+
+    .ghost-btn {
+      padding: 0 14px;
+      background: rgba(90, 47, 27, 0.08);
+      color: var(--brown-dark);
+    }
+
+    .danger-btn {
+      padding: 0 14px;
+      background: rgba(213, 74, 54, 0.12);
+      color: var(--danger);
+    }
+
+    .form {
+      display: grid;
+      gap: 12px;
+      padding: 18px;
+    }
+
+    label {
+      display: grid;
+      gap: 7px;
+      color: var(--brown-dark);
+      font-size: 0.88rem;
+      font-weight: 900;
+    }
+
+    .form-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .empty {
+      margin: 0;
+      padding: 26px 18px 24px;
+      color: var(--muted);
+      line-height: 1.7;
+      text-align: center;
+    }
+
+    .toast {
+      position: fixed;
+      right: 14px;
+      bottom: calc(18px + var(--safe-bottom));
+      left: 14px;
+      z-index: 30;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 10px;
+      align-items: center;
+      max-width: 520px;
+      margin: 0 auto;
+      padding: 14px 16px;
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      border-radius: 20px;
+      background: rgba(47, 31, 24, 0.94);
+      color: #fff;
+      box-shadow: 0 18px 42px rgba(47, 31, 24, 0.32);
+      transform: translateY(120%);
+      opacity: 0;
+      transition: transform 220ms ease, opacity 220ms ease;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .tip-grid {
+      display: grid;
+      gap: 10px;
+      padding: 0 18px 18px;
+    }
+
+    .tip {
+      margin: 0;
+      padding: 12px;
+      border-radius: 18px;
+      background: rgba(245, 158, 11, 0.13);
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.65;
+    }
+
+    @media (min-width: 720px) {
+      .app-shell { padding-inline: 24px; }
+      .hero { grid-template-columns: 1fr 240px; padding: 28px; }
+      .toolbar { grid-template-columns: minmax(240px, 0.8fr) 1.2fr; align-items: center; }
+      .layout { grid-template-columns: minmax(0, 1.4fr) minmax(300px, 0.9fr); align-items: start; }
+      .snippet-card { grid-template-columns: minmax(0, 1fr) 124px; align-items: center; }
+      .copy-btn { width: auto; }
+      .mascot { width: 190px; height: 174px; }
+      .mascot .head { inset: 8px 12px 26px; }
+      .mascot .brow { top: 62px; width: 58px; }
+      .mascot .brow.left { left: 31px; }
+      .mascot .brow.right { right: 31px; }
+      .mascot .eye { top: 76px; width: 42px; height: 47px; }
+      .mascot .eye.left { left: 42px; }
+      .mascot .eye.right { right: 42px; }
+      .mascot .mouth { bottom: 46px; }
+      .mascot .foot { width: 72px; height: 32px; }
+    }
+
+    @media (min-width: 1000px) {
+      .app-shell { padding-top: 28px; }
+      .layout { grid-template-columns: minmax(0, 1.55fr) 360px; }
+      .panel.sticky { position: sticky; top: 104px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="app-shell">
+    <section class="hero" aria-labelledby="appTitle">
+      <div class="hero-copy">
+        <p class="eyebrow">🍄 iPhone・iPad用 / コピーを1タップで</p>
+        <h1 id="appTitle">クリボー風<br />コピペ帳</h1>
+        <p>よく使う返信、あいさつ、SNS文、住所メモを保存して、必要な瞬間にぽんっとコピー。ホーム画面に追加するとアプリみたいに使えます。</p>
+      </div>
+      <div class="mascot-wrap" aria-hidden="true">
+        <div class="mascot">
+          <span class="head"></span>
+          <span class="brow left"></span>
+          <span class="brow right"></span>
+          <span class="eye left"></span>
+          <span class="eye right"></span>
+          <span class="mouth"></span>
+          <span class="foot left"></span>
+          <span class="foot right"></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="toolbar" aria-label="検索とカテゴリ">
+      <input class="search-box" id="searchInput" type="search" placeholder="コピペを検索" autocomplete="off" />
+      <div class="chips" id="categoryChips" aria-label="カテゴリ選択"></div>
+    </section>
+
+    <div class="layout">
+      <section class="panel" aria-labelledby="listTitle">
+        <div class="panel-header">
+          <h2 class="panel-title" id="listTitle">コピペリスト</h2>
+          <span class="count" id="snippetCount">0件</span>
+        </div>
+        <div class="snippet-list" id="snippetList"></div>
+        <p class="empty" id="emptyState" hidden>見つかりませんでした。検索ワードやカテゴリを変えるか、新しいコピペを追加してね。</p>
+      </section>
+
+      <aside class="panel sticky" aria-labelledby="formTitle">
+        <div class="panel-header">
+          <h2 class="panel-title" id="formTitle">新しく追加</h2>
+        </div>
+        <form class="form" id="snippetForm">
+          <label>
+            タイトル
+            <input class="field" id="titleInput" type="text" placeholder="例：丁寧な返信" required maxlength="40" />
+          </label>
+          <label>
+            カテゴリ
+            <input class="field" id="categoryInput" type="text" placeholder="例：仕事 / SNS / 個人" required maxlength="18" />
+          </label>
+          <label>
+            コピーする文章
+            <textarea class="field" id="textInput" placeholder="ここに定型文を入力" required maxlength="600"></textarea>
+          </label>
+          <div class="form-actions">
+            <button class="ghost-btn" type="reset">消す</button>
+            <button class="primary-btn" type="submit">保存</button>
+          </div>
+        </form>
+        <div class="tip-grid">
+          <p class="tip">💡 Safariの共有ボタンから「ホーム画面に追加」で、iPhone/iPadのアプリ風に起動できます。</p>
+          <p class="tip">🔒 追加した文章はこの端末のブラウザ内に保存されます。</p>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    <strong>🍄</strong>
+    <span id="toastText">コピーしました</span>
+  </div>
+
+  <script>
+    const STORAGE_KEY = "kuribo-copy-snippets-v1";
+
+    const starterSnippets = [
+      {
+        id: createId(),
+        title: "すぐ返信します",
+        category: "仕事",
+        text: "ご連絡ありがとうございます。確認のうえ、本日中に返信いたします。よろしくお願いいたします。"
+      },
+      {
+        id: createId(),
+        title: "日程調整",
+        category: "仕事",
+        text: "候補日をありがとうございます。以下の日程で調整可能です。\n・○月○日（○）○:○○〜\n・○月○日（○）○:○○〜"
+      },
+      {
+        id: createId(),
+        title: "SNS告知",
+        category: "SNS",
+        text: "お知らせです🍄\n新しい投稿を公開しました！よかったらチェックしてみてください。"
+      },
+      {
+        id: createId(),
+        title: "買い物メモ",
+        category: "個人",
+        text: "牛乳 / 卵 / パン / コーヒー / ティッシュ"
+      },
+      {
+        id: createId(),
+        title: "ありがとう",
+        category: "個人",
+        text: "ありがとうございます！とても助かりました。またよろしくお願いします。"
+      }
+    ];
+
+
+    function createId() {
+      if (typeof crypto !== "undefined" && crypto.randomUUID) {
+        return crypto.randomUUID();
+      }
+      return `snippet-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+    }
+
+    const state = {
+      snippets: loadSnippets(),
+      category: "すべて",
+      query: ""
+    };
+
+    const listEl = document.getElementById("snippetList");
+    const countEl = document.getElementById("snippetCount");
+    const emptyEl = document.getElementById("emptyState");
+    const chipsEl = document.getElementById("categoryChips");
+    const searchEl = document.getElementById("searchInput");
+    const formEl = document.getElementById("snippetForm");
+    const toastEl = document.getElementById("toast");
+    const toastTextEl = document.getElementById("toastText");
+
+    function loadSnippets() {
+      try {
+        const stored = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+        return Array.isArray(stored) && stored.length ? stored : starterSnippets;
+      } catch (error) {
+        return starterSnippets;
+      }
+    }
+
+    function saveSnippets() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state.snippets));
+    }
+
+    function getCategories() {
+      return ["すべて", ...new Set(state.snippets.map((item) => item.category))];
+    }
+
+    function getFilteredSnippets() {
+      const query = state.query.trim().toLowerCase();
+      return state.snippets.filter((item) => {
+        const categoryMatch = state.category === "すべて" || item.category === state.category;
+        const queryMatch = !query || `${item.title} ${item.category} ${item.text}`.toLowerCase().includes(query);
+        return categoryMatch && queryMatch;
+      });
+    }
+
+    function renderCategories() {
+      chipsEl.innerHTML = "";
+      getCategories().forEach((category) => {
+        const button = document.createElement("button");
+        button.className = "chip";
+        button.type = "button";
+        button.textContent = category;
+        button.setAttribute("aria-pressed", String(category === state.category));
+        button.addEventListener("click", () => {
+          state.category = category;
+          render();
+        });
+        chipsEl.appendChild(button);
+      });
+    }
+
+    function renderList() {
+      const snippets = getFilteredSnippets();
+      countEl.textContent = `${snippets.length}件`;
+      emptyEl.hidden = snippets.length !== 0;
+      listEl.innerHTML = "";
+
+      snippets.forEach((item) => {
+        const card = document.createElement("article");
+        card.className = "snippet-card";
+        card.innerHTML = `
+          <div class="snippet-main">
+            <div class="snippet-meta">
+              <span class="tag"></span>
+              <button class="danger-btn" type="button" aria-label="${escapeHtml(item.title)}を削除">削除</button>
+            </div>
+            <h3 class="snippet-title"></h3>
+            <p class="snippet-text"></p>
+          </div>
+          <button class="copy-btn" type="button">コピー</button>
+        `;
+        card.querySelector(".tag").textContent = item.category;
+        card.querySelector(".snippet-title").textContent = item.title;
+        card.querySelector(".snippet-text").textContent = item.text;
+        card.querySelector(".copy-btn").addEventListener("click", () => copySnippet(item.text));
+        card.querySelector(".danger-btn").addEventListener("click", () => deleteSnippet(item.id));
+        listEl.appendChild(card);
+      });
+    }
+
+    function render() {
+      if (!getCategories().includes(state.category)) {
+        state.category = "すべて";
+      }
+      renderCategories();
+      renderList();
+    }
+
+    async function copySnippet(text) {
+      try {
+        await navigator.clipboard.writeText(text);
+        showToast("コピーしました。貼り付けたい場所でペーストしてね。");
+      } catch (error) {
+        const helper = document.createElement("textarea");
+        helper.value = text;
+        helper.setAttribute("readonly", "");
+        helper.style.position = "fixed";
+        helper.style.opacity = "0";
+        document.body.appendChild(helper);
+        helper.select();
+        document.execCommand("copy");
+        helper.remove();
+        showToast("コピーしました。ブラウザ制限時は長押しで選択してね。");
+      }
+    }
+
+    function deleteSnippet(id) {
+      state.snippets = state.snippets.filter((item) => item.id !== id);
+      saveSnippets();
+      render();
+      showToast("削除しました。");
+    }
+
+    function showToast(message) {
+      toastTextEl.textContent = message;
+      toastEl.classList.add("show");
+      clearTimeout(showToast.timer);
+      showToast.timer = setTimeout(() => toastEl.classList.remove("show"), 2300);
+    }
+
+    function escapeHtml(value) {
+      return value.replace(/[&<>'"]/g, (char) => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        "'": "&#39;",
+        '"': "&quot;"
+      }[char]));
+    }
+
+    searchEl.addEventListener("input", (event) => {
+      state.query = event.target.value;
+      renderList();
+    });
+
+    formEl.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const title = document.getElementById("titleInput").value.trim();
+      const category = document.getElementById("categoryInput").value.trim();
+      const text = document.getElementById("textInput").value.trim();
+      if (!title || !category || !text) return;
+
+      state.snippets.unshift({
+        id: createId(),
+        title,
+        category,
+        text
+      });
+      saveSnippets();
+      formEl.reset();
+      state.category = "すべて";
+      render();
+      showToast("新しいコピペを保存しました。");
+    });
+
+    render();
+  </script>
+</body>
+</html>
